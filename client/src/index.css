@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+html,
+body,
+#root,
+.app {
+    height: 100%;
+    width: 100%;
+    font-family: "Inter", sans-serif;
+    margin:0;
+    padding: 0;
+}
+
+/* width */
+.customPaper::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  .customPaper::-webkit-scrollbar-track {
+    /* box-shadow: inset 0 0 5px grey;  */
+    background-color: #eee;
+    border-radius: 10px;
+  }
+   
+  /* Handle */
+  .customPaper::-webkit-scrollbar-thumb {
+    background: #aaaabb; 
+    border-radius: 10px;
+  }
+  
+  /* Handle on hover */
+  .customPaper::-webkit-scrollbar-thumb:hover {
+    background: #909099; 
+  }
+
+  .resultTag::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  /* Track */
+  .resultTag::-webkit-scrollbar-track {
+    /* box-shadow: inset 0 0 5px grey;  */
+    background-color: #eee;
+    border-radius: 10px;
+  }
+   
+  /* Handle */
+  .resultTag::-webkit-scrollbar-thumb {
+    background: #aaaabb; 
+    /* border-radius: 10px; */
+  }
+  
+  /* Handle on hover */
+  .resultTag::-webkit-scrollbar-thumb:hover {
+    background: #909099; 
+  }
