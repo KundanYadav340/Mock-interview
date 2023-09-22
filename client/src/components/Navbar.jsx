@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useTheme } from "@emotion/react";
 import {
   AppBar,
@@ -28,6 +28,15 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.global.user);
+  const [active, setActive] = useState(0);
+  useEffect(() => {
+    // Get the pathname (the part after the domain)
+    const pathname = window.location.pathname;
+    console.log("Pathname:", pathname);
+    if (pathname === "/") {
+      setActive(1);
+    }
+  }, []);
   const handleAccount = () => {
     dispatch(setUser({ user: null }));
     navigate("/log", { replace: true });
@@ -61,16 +70,22 @@ const Navbar = () => {
               variant="subtitle2"
               ml="20px"
               color={theme.palette.secondary.main}
+              sx={{ cursor: "pointer" }}
             >
               HOME
             </Typography>
             <Typography
               variant="subtitle2"
               ml="20px"
-              color={theme.palette.secondary.main}
+              color={
+                active === 1
+                  ? theme.palette.primary.main
+                  : theme.palette.secondary.main
+              }
               onClick={() => {
                 navigate("/");
               }}
+              sx={{ cursor: "pointer" }}
             >
               INTERVIEWS
             </Typography>
@@ -80,6 +95,10 @@ const Navbar = () => {
               color={theme.palette.secondary.main}
               onClick={() => {
                 navigate("/result");
+              }}
+              sx={{
+                cursor: "pointer",
+                p: "2px 4px",
               }}
             >
               RESULT

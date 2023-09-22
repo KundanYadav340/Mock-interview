@@ -12,6 +12,8 @@ export const api = createApi({
     "LoginUser",
     "Submissions",
     "Results",
+    "OneSubmission",
+    "Evaluate",
   ],
   endpoints: (build) => ({
     getInterview: build.query({
@@ -25,6 +27,11 @@ export const api = createApi({
     getResult: build.query({
       query: (id) => `answers/getResult/${id}`,
       providesTags: ["Results"],
+    }),
+    getOneSubmission: build.query({
+      query: (id) => `answers/checkMarked/${id}`,
+      method: "GET",
+      providesTags: ["OneSubmission"],
     }),
     getSubmissions: build.query({
       query: (userId) => `answers/submission/${userId}`,
@@ -60,6 +67,10 @@ export const api = createApi({
       }),
       providesTags: ["Help"],
     }),
+    getEvaluate: build.mutation({
+      query: (id) => `answers/evaluate/${id}`,
+      providesTags: ["Evaluate"],
+    }),
     loginUser: build.mutation({
       query: ({ email, password }) => ({
         url: "client/loginUser",
@@ -80,4 +91,6 @@ export const {
   useLoginUserMutation,
   useGetSubmissionsQuery,
   useGetResultQuery,
+  useGetOneSubmissionQuery,
+  useGetEvaluateMutation,
 } = api;

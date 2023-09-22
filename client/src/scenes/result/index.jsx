@@ -9,7 +9,14 @@ const Result = () => {
       <Box
         display="flex"
         alignItems="center"
-        sx={{ borderBottom: "1px solid #dfdfdf", p: "4px" }}
+        sx={{
+          borderBottom: "1px solid #dfdfdf",
+          p: "8px",
+          position: "sticky",
+          top: 0,
+          background: "#f5f7fb",
+          zIndex: 1000,
+        }}
       >
         <IconButton>
           <ArrowBack />

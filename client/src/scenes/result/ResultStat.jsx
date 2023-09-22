@@ -1,14 +1,53 @@
 import { Box } from "@mui/material";
-import React from "react";
-import { Outlet } from "react-router-dom";
+import SidebarResult from "components/SidebarResult";
+import React, { useEffect, useState } from "react";
+import { Outlet, useParams } from "react-router-dom";
+import { useGetOneSubmissionQuery } from "state/api";
+import { useGetEvaluateMutation } from "state/api";
 
 const ResultStat = () => {
+  const { submissionId } = useParams();
+  const { data, isLoading } = useGetOneSubmissionQuery(submissionId);
+  const [checked, setChecked] = useState(false);
+  const [getEvaluate, { isError, isSuccess }] = useGetEvaluateMutation();
+  useEffect(() => {
+    console.log("oneSubmission", data);
+    if (data) {
+      if (!data.marked) {
+        setChecked(false);
+        getEvaluate(submissionId);
+      } else {
+        setChecked(true);
+      }
+    }
+  }, [data]);
+  if (checked) {
+    return (
+      <>
+        <Box>Your Answeres are not evaluated yet...</Box>
+      </>
+    );
+  }
   return (
-    <Box display="flex" width="100%">
-      <Box width="360px" height="100%">
-        sidebar
+    <Box display="flex" width="100%" sx={{ background: "white" }}>
+      <Box width="300px" height="100vh" sx={{ position: "fixed" }}>
+        <Box
+          display={"flex"}
+          flexDirection={"row"}
+          justifyContent={"right"}
+          p="80px 20px"
+        >
+          <SidebarResult />
+        </Box>
       </Box>
-      <Box sx={{ flexGrow: 1, background: "#efefef" }}>
+      <Box
+        sx={{
+          flexGrow: 1,
+          background: "#f5f7fb",
+          marginLeft: "300px",
+          paddingLeft: "20px",
+        }}
+      >
         <Outlet />
       </Box>
     </Box>

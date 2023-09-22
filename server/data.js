@@ -165,3 +165,86 @@ export const question = [
     tags: ["space", "planets"]
   }
 ];
+
+export const q2 = [
+  {
+    "questionNumber": 1,
+    "question": {
+      "questionAsked": "What is the time complexity of inserting an element at the end of an array?"
+    },
+    "type": "video",
+    "duration": 120,
+    "answer": {
+      "value": "O(1)"
+    },
+    "hint": ["Inserting an element at the end of an array has constant time complexity."],
+    "images": [],
+    "level": "easy",
+    "tags": ["data structures", "algorithms"],
+    "score": 0
+  },
+  {
+    "questionNumber": 2,
+    "question": {
+      "questionAsked": "What is a binary search tree?"
+    },
+    "type": "video",
+    "duration": 120,
+    "answer": {
+      "value": "A binary tree in which each node has at most two children, and values are ordered."
+    },
+    "hint": ["A binary search tree is a specific type of binary tree with ordering properties."],
+    "images": [],
+    "level": "easy",
+    "tags": ["data structures", "algorithms"],
+    "score": 0
+  },
+  {
+    "questionNumber": 3,
+    "question": {
+      "questionAsked": "Explain the concept of Big O notation."
+    },
+    "type": "video",
+    "duration": 120,
+    "answer": {
+      "value": "Big O notation is used to describe the upper bound of an algorithm's time complexity."
+    },
+    "hint": ["Big O notation provides an asymptotic analysis of algorithm efficiency."],
+    "images": [],
+    "level": "medium",
+    "tags": ["data structures", "algorithms"],
+    "score": 0
+  },
+  {
+    "questionNumber": 4,
+    "question": {
+      "questionAsked": "What is a hash table?"
+    },
+    "type": "video",
+    "duration": 120,
+    "answer": {
+      "value": "A data structure that stores key-value pairs and provides fast lookup."
+    },
+    "hint": ["Hash tables use a hash function to map keys to indices for efficient retrieval."],
+    "images": [],
+    "level": "medium",
+    "tags": ["data structures", "algorithms"],
+    "score": 0
+  },
+  {
+    "questionNumber": 5,
+    "question": {
+      "questionAsked": "What is the purpose of dynamic programming?"
+    },
+    "type": "video",
+    "duration": 120,
+    "answer": {
+      "value": "Dynamic programming is used to solve problems by breaking them into smaller subproblems."
+    },
+    "hint": ["Dynamic programming helps avoid redundant calculations in recursive algorithms."],
+    "images": [],
+    "level": "hard",
+    "tags": ["data structures", "algorithms"],
+    "score": 0
+  }
+];

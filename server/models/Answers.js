@@ -15,6 +15,10 @@ const subSchema = new mongoose.Schema({
     type: Array,
     default: [],
   },
+    transcript:{
+      type:String,
+        default:""
+    },
   timeTaken: {
     type: Number,
     default: 0,

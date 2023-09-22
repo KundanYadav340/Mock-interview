@@ -1,17 +1,36 @@
-import { DocumentScanner } from "@mui/icons-material";
+import {
+  ArrowBackIosNewRounded,
+  ArrowForwardIosRounded,
+  DocumentScanner,
+} from "@mui/icons-material";
 import { Box, Button, Collapse, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useGetResultQuery } from "state/api";
 const VideoShow = ({ link }) => {
+  const [vlink, setVlink] = useState("");
+  useEffect(() => {
+    setVlink(link);
+  }, [link]);
   return (
-    <video controls width={"600px"}>
-      <source src={link} type="video/mp4" />
-      Your browser does not support the video tag.
-    </video>
+    // <>
+    //   {link && (
+    //     <video controls width={"600px"}>
+    //       <source src={link} type="video/mp4" />
+    //       Your browser does not support the video tag.
+    //     </video>
+    //   )}
+    // </>
+    <iframe
+      width="600"
+      height="360"
+      src={link}
+      title={`Video 12`}
+      allowFullScreen
+    ></iframe>
   );
 };
-const QuestionAnalysisComp = ({ data }) => {
+const QuestionAnalysisComp = ({ data, changeQuestion, qno }) => {
   const [answerCollapse, setAnswerCollapse] = useState(false);
   const [pointsCollapse, setPointsCollapse] = useState(false);
   return (
@@ -26,34 +45,26 @@ const QuestionAnalysisComp = ({ data }) => {
         background: "white",
       }}
     >
-      <Box>Question no. {1}</Box>
-      <Box>
-        {data.question.questionAsked}
-        What is react hooks? Explain the concept of Virtual DOM in React and its
-        significance in web development?
-      </Box>
+      <Box>Question no. {qno + 1}</Box>
+      <Box>{data.question.questionAsked}</Box>
       {data.status === "attempted" && (
         <>
-          <Box
-            sx={{
-              background: "#fcfffc",
-              p: "8px 12px",
-              borderRadius: "6px",
-              border: "1px solid #aaffaa",
-            }}
-          >
-            Scored: 9/20 | Average score: 6/20 | Highest score: 17/20
-          </Box>
+          {/*<Box*/}
+          {/*  sx={{*/}
+          {/*    background: "#fcfffc",*/}
+          {/*    p: "8px 12px",*/}
+          {/*    borderRadius: "6px",*/}
+          {/*    border: "1px solid #aaffaa",*/}
+          {/*  }}*/}
+          {/*>*/}
+          {/*  {data.score? `Your Score : ${data.score}`:<Button variant={"outlined"} sx={{textTransform:"none"}}>Score My Answer</Button>}*/}
+          {/*</Box>*/}
           <Box display={"flex"} justifyContent={"center"}>
-            <VideoShow
-              link={
-                "https://firebasestorage.googleapis.com/v0/b/interview-812a9.appspot.com/o/interviewVideoAnswers%2F4b210b8e-9cd4-41fe-9f89-4386f1f5844664adb28dac417ed6f01e456864c696f9262b82c0fdecc98b?alt=media&token=86dcd23a-a4b2-4a79-8d54-be3f0828dec4"
-              }
-            />
+            <VideoShow link={data.selectedOptions[0]} />
           </Box>
           <Box sx={{ background: "#efefef", p: "16px", borderRadius: "10px" }}>
             <Box display={"flex"} alignItems={"center"} mb="10px" gap="8px">
-              <DocumentScanner />
+              <DocumentScanner sx={{ fontSize: "18px" }} />
               <Typography sx={{ fontWeight: "bold" }}>
                 Transcribed Answer:
               </Typography>
@@ -71,6 +82,7 @@ const QuestionAnalysisComp = ({ data }) => {
                 ml: "16px",
               }}
             >
+              {data.transcript}
               In React, the Virtual DOM is a lightweight copy of the actual DOM,
               a representation of the UI components' structure and state. When
               changes occur in a React application, they are first made to the
@@ -79,6 +91,10 @@ const QuestionAnalysisComp = ({ data }) => {
               DOM state. Only the necessary changes are computed, and React
               updates the real DOM efficiently with these minimal changes.
             </Collapse>
+          </Box>
+          <Box>
+            Your Answer is not marked yet, our AI teacher is working hard to
+            analayze your answer. Please wait...
           </Box>
           <Box sx={{ border: "1px solid #008080" }}>
             <Box sx={{ background: "#008080", p: "8px 12px" }}>
@@ -114,14 +130,23 @@ const QuestionAnalysisComp = ({ data }) => {
         </>
       )}
       <Box sx={{ position: "fixed", bottom: "20px", right: "20px" }}>
-        <Button size="small" variant="contained" startIcon={"<<"}>
+        <Button
+          variant="contained"
+          startIcon={<ArrowBackIosNewRounded />}
+          onClick={() => {
+            changeQuestion(-2);
+          }}
+        >
           Previous
         </Button>
         <Button
-          size="small"
+          // size="small"
           variant="contained"
-          endIcon={">>"}
+          endIcon={<ArrowForwardIosRounded />}
           sx={{ ml: "10px" }}
+          onClick={() => {
+            changeQuestion(-1);
+          }}
         >
           Next
         </Button>
@@ -137,9 +162,24 @@ const QuestionAnalysis = () => {
   useEffect(() => {
     console.log("cvdfvdvdvad", data);
   }, [data]);
-
+  const changeQuestion = (increment) => {
+    if (increment === -1) {
+      setSelectedQuestion((prev) => (prev + 1) % data.length);
+    }
+    if (increment === -2) {
+      setSelectedQuestion((prev) => (prev === 0 ? data.length - 1 : prev - 1));
+    }
+  };
   return (
-    <>{data && <QuestionAnalysisComp data={{ ...data[selectedQuestion] }} />}</>
+    <>
+      {data && (
+        <QuestionAnalysisComp
+          qno={selectedQuestion}
+          changeQuestion={changeQuestion}
+          data={{ ...data[selectedQuestion] }}
+        />
+      )}
+    </>
   );
 };
 

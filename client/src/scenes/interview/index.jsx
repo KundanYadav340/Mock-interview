@@ -41,6 +41,7 @@ const Interview = () => {
           answerLink: "",
           timeTaken: 0,
           status: i === 0 ? "seen" : "notSeen",
+          transcript:""
         };
         temp[i] = initial;
       }
@@ -76,7 +77,7 @@ const Interview = () => {
     return time;
   };
 
-  const answerChanged = (id, key, type) => {
+  const answerChanged = (id, key, type, transcript="") => {
     //for single choice question
     if (type === "singleChoice") {
       //console.log("obtained key", key, "id", id);
@@ -103,11 +104,13 @@ const Interview = () => {
     }
     //for video solutions
     if (type === "video") {
+      // console.log("qwww", key, transcript);
       const status = key !== "" ? "attempted" : "seen";
-      const options = key !== [] ? [key] : [];
+      const options = key !== "" ? [key] : [];
+      console.log("op",options);
       const updatedAnswer = answers.map((answer) =>
         answer.question_id === id
-          ? { ...answer, status: status, selectedOptions: options }
+          ? { ...answer, status: status, selectedOptions: options, transcript:transcript }
           : answer
       );
       setAnswers(updatedAnswer);

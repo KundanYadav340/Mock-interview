@@ -8,7 +8,11 @@ const Chiplet = () => {
       mb="12px"
       //   borderBottom="1px solid #dfdfdf"
       p="10px"
-      sx={{ background: "#efefef", borderRadius: "10px" }}
+      sx={{
+        background: "#f9f9f9",
+        border: "1px solid #efefef",
+        borderRadius: "10px",
+      }}
     >
       <FlexBetween>
         <Typography sx={{ fontSize: "14px" }}> Binary Search</Typography>
@@ -94,7 +98,7 @@ const TagAnalysis = () => {
     <Box height="100%">
       <Box
         sx={{
-          borderBottom: "1px solid #aaa",
+          borderBottom: "1px solid #ddddee",
           p: "12px",
           fontFamily: "verdana",
         }}

@@ -34,7 +34,7 @@ const PaperLayout = ({
   const [value, setValue] = useState(null); // state for singleChoice question
   const [selectedValuesMultipleChoice, setSelectedValuesMultipleChoice] =
     useState([]); // state for multipleChoice question
-  var p = new Array(question.options.length).fill(false);
+  if(question.options) var p = new Array(question.options.length).fill(false);
   const [checked, setChecked] = useState(p);
   // const type="multipleChoice";
   const handleChange = (event) => {

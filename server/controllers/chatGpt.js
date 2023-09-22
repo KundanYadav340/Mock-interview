@@ -1,12 +1,15 @@
+import dotenv from "dotenv";
+dotenv.config();
 import { Configuration, OpenAIApi } from "openai";
 
 const configuration = new Configuration({
   organization: "org-ZvDSze4mo7yXPfvDXsQqmyqo",
-  apiKey: "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",
+  apiKey: process.env.OPENAI_API_KEY,
 });
 export const getGptHelp = async (req, res) => {
   try {
     // Get the prompt from the request
+    console.log("api key", process.env.OPENAI_API_KEY);
     const { prompt } = req.body;
     const prompt2 = `suggest me some  hints about the question : ${prompt} to speak in an interview`;
     const openai = new OpenAIApi(configuration);
@@ -37,18 +40,44 @@ export const getGptHelp = async (req, res) => {
   }
 };
 
-export const checkAnswer = async (req, res) => {
+export const checkAnswer = async (data) => {
   try {
     // Get the prompt from the request
-    const { question, length, markingCriteria } = req.body;
-    const prompt2 = `suggest me some  hints about the question : ${prompt} to speak in an interview`;
     const openai = new OpenAIApi(configuration);
     const response = await openai.createChatCompletion({
       model: "gpt-3.5-turbo-16k-0613",
       messages: [
         {
+          role: "system",
+          content:
+            "you are an interviewer and the question asked by you is given as questionAsked and answer given by interviewee is in transcript",
+        },
+        {
+          role: "system",
+          content:
+            "the data will be provided to you and you have to give score on a scale of 1 to 100",
+        },
+        {
+          role: "system",
+          content:
+            "give marks only when answer is correct and related to question asked",
+        },
+        {
+          role: "system",
+          content: "reduce marks if the question is incorrect or unrelated",
+        },
+        {
+          role: "system",
+          content: "reduce marks if the question is short than expected by you",
+        },
+        {
+          role: "system",
+          content:
+            "insert the score in the given array of objects and in response only give the stringified json between ###",
+        },
+        {
           role: "user",
-          content: prompt2,
+          content: data,
         },
       ],
       temperature: 1,
@@ -58,13 +87,8 @@ export const checkAnswer = async (req, res) => {
       presence_penalty: 0,
     });
     console.log("response", response);
-    res.status(200).json({
-      error: false,
-      message: "Found this",
-      doc: response.data.choices[0].message,
-    });
+    return response;
   } catch (error) {
-    res.status(400).json({ error });
-    console.log(error);
+    return "some error";
   }
 };

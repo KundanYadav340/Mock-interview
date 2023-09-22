@@ -12,7 +12,7 @@ import Result from "scenes/result";
 import ResultPage from "scenes/result/ResultPage";
 import ResultStat from "scenes/result/ResultStat";
 import Protected from "components/ProtectedRoutes";
-import { UseSelector, useSelector } from "react-redux";
+import { UseSelector, useDispatch, useSelector } from "react-redux";
 import Dashboard from "scenes/result/Dashboard";
 import QuestionAnalysis from "scenes/result/QuestionAnalysis";
 import Transcription from "components/Transcription";

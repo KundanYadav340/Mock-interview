@@ -24,7 +24,7 @@ app.use(cors());
 import Interview from "./models/Interviews.js";
 import { interview } from "./data.js";
 import Questions from "./models/Questions.js";
-import { question } from "./data.js";
+import { q2 } from "./data.js";
 
 app.use("/interview", interviewRoutes);
 app.use("/answers", answerRoutes);
@@ -41,7 +41,7 @@ mongoose
   .then(() => {
     app.listen(PORT, () => {
       //Interview.insertMany(interview);
-      //Questions.insertMany(question);
+      // Questions.insertMany(q2);
       console.log(`Server running on ${PORT}`);
     });
   })

@@ -55,11 +55,11 @@ const InterviewCard = ({
         }}
       >
         {/* <CardMedia
-            component="img"
-            sx={{ width: 180, objectFit:"cover" }}
-            image={cardImg}
-            alt="Live from space album cover"
-          /> */}
+          component="img"
+          sx={{ width: 180, objectFit: "cover", height: 160 }}
+          image={cardImg}
+          alt="Live from space album cover"
+        /> */}
         <Box flexGrow="1" sx={{ display: "flex", flexDirection: "column" }}>
           <CardContent sx={{ flex: "1 0 auto" }}>
             <Box
@@ -172,8 +172,6 @@ const InterviewCard = ({
                 ))}
               </Box>
 
-              {/* <Typography variant="subtitle1" color="text.secondary" component="div">
-              </Typography> */}
               <Box
                 sx={{
                   color: theme.palette.grey.main[500],
@@ -195,11 +193,11 @@ const InterviewCard = ({
               alignItems: "center",
               pl: 1,
               pb: "10px",
-              gap: "20px",
+              gap: "24px",
               ml: "20px",
             }}
           >
-            <FlexBetween gap="6px">
+            <FlexBetween gap="4px">
               <FlexBetween sx={{ borderRadius: "6px" }}>
                 <AccessAlarmTwoToneIcon
                   sx={{ fontSize: "30px", p: "6px", color: "#6060aa" }}
@@ -212,7 +210,7 @@ const InterviewCard = ({
                 </Typography>
               </Box>
             </FlexBetween>
-            <FlexBetween gap="6px">
+            <FlexBetween gap="4px">
               <FlexBetween sx={{ borderRadius: "6px" }}>
                 <PeopleAltTwoToneIcon
                   sx={{ fontSize: "30px", p: "6px", color: "#60aa60" }}
@@ -225,7 +223,7 @@ const InterviewCard = ({
                 </Typography>
               </Box>
             </FlexBetween>
-            <FlexBetween gap="6px">
+            <FlexBetween gap="4px">
               <FlexBetween sx={{ borderRadius: "6px" }}>
                 <QuizTwoToneIcon
                   sx={{ fontSize: "30px", p: "6px", color: "#60aaaa" }}

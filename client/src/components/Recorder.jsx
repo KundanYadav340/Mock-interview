@@ -126,7 +126,7 @@ const Recorder = ({ id, answerChanged }) => {
           setProgress("done");
           setVideoUrl(downloadURL);
           // getUrl(downloadURL);
-          answerChanged(id, [downloadURL, transcript], "video");
+          answerChanged(id, downloadURL, "video", transcript);
         });
       }
     );
