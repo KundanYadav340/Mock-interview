@@ -1,5 +1,5 @@
 // import {Box, Button, Typography, Paper } from '@mui/material';
-import React from "react";
+import React, { useState } from "react";
 import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
@@ -17,6 +17,7 @@ import { Avatar, Button, Divider, Rating } from "@mui/material";
 import AccessAlarmTwoToneIcon from "@mui/icons-material/AccessAlarmTwoTone";
 import PeopleAltTwoToneIcon from "@mui/icons-material/PeopleAltTwoTone";
 import QuizTwoToneIcon from "@mui/icons-material/QuizTwoTone";
+import { useSelector } from "react-redux";
 import {
   Alarm,
   Tag,
@@ -30,6 +31,7 @@ import man from "./../assets/man.jpg";
 import TaskAltOutlinedIcon from "@mui/icons-material/TaskAltOutlined";
 import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
 import KeyboardDoubleArrowRightOutlinedIcon from "@mui/icons-material/KeyboardDoubleArrowRightOutlined";
+import CustomDialog from "./popovers/CustomDialog";
 
 const InterviewCard = ({
   title,
@@ -40,10 +42,24 @@ const InterviewCard = ({
   amount,
   _id,
 }) => {
+  const [open, setOpen] = useState(false);
   const theme = useTheme();
   const navigate = useNavigate();
+  const user = useSelector((state) => state.global.user);
+  const openInterview = () => {
+    if (user) {
+      const windowFeatures = `toolbar=no,menubar=no,location=no,status=no,scrollbars=yes,height=${window.screen.availHeight},width=${window.screen.availWidth}`;
+      navigate(`/interview/${_id}`);
+    } else {
+      setOpen(true);
+    }
+  };
+  const closeDialog = () => {
+    setOpen(false);
+  };
   return (
     <>
+      <CustomDialog isOpen={open} closeDialog={closeDialog} />
       <Card
         elevation={1}
         sx={{
@@ -263,9 +279,7 @@ const InterviewCard = ({
               variant="contained"
               sx={{ textTransform: "none" }}
               onClick={() => {
-                const windowFeatures = `toolbar=no,menubar=no,location=no,status=no,scrollbars=yes,height=${window.screen.availHeight},width=${window.screen.availWidth}`;
-                // window.open(`http://localhost:3000/interview/${_id}`);
-                navigate(`/interview/${_id}`);
+                openInterview();
               }}
             >
               Attempt Now
