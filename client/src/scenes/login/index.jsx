@@ -18,7 +18,12 @@ import { useNavigate } from "react-router-dom";
 import { Email } from "@mui/icons-material";
 import back from "assets/back.svg";
 import { toast } from "react-toastify";
-import logImage from "assets/work.jpg";
+import analysis from "assets/analysis.jpg";
+import onetoone from "assets/onetoone.jpg";
+import ai from "assets/ai.jpg";
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Carousel } from "react-responsive-carousel";
+import { useTheme } from "@emotion/react";
 
 const Login = () => {
   const [name, setName] = useState("");
@@ -26,6 +31,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const theme = useTheme();
   const [loginUser, { isLoading, isError, isSuccess, data }] =
     useLoginUserMutation();
   const notify = (type, msg) => {
@@ -73,6 +79,7 @@ const Login = () => {
         justifyContent="center"
         alignItems="center"
         gap="60px"
+        sx={{ backgroundImage: "linear-gradient(#fcfcfc, #eeeeff)" }}
       >
         <Box
           width="80%"
@@ -83,15 +90,74 @@ const Login = () => {
           justifyContent="center"
           alignItems="center"
         >
-          <Box width="50%" sx={{ background: "black", height: "100%" }}>
-            <Box
-              component="img"
-              src={logImage}
-              alt="filler"
-              height="100%"
-              width="100%"
-              sx={{ objectFit: "cover" }}
-            />
+          <Box
+            width="50%"
+            sx={{ background: "black", height: "100%", overflow: "hidden" }}
+          >
+            <Carousel
+              showArrows={false}
+              showStatus={false}
+              showIndicators={false}
+              autoPlay={true}
+              infiniteLoop={true}
+              showThumbs={false}
+              interval={"5000"}
+            >
+              <div>
+                <img
+                  src={onetoone}
+                  alt="i1"
+                  style={{ height: "86vh", objectFit: "cover" }}
+                />
+                <p
+                  className="legend"
+                  style={{
+                    fontSize: "22px",
+                    background: `${theme.palette.secondary.main}`,
+                    opacity: ".9",
+                    border: "1px solid #ccc",
+                  }}
+                >
+                  One to One Counselling
+                </p>
+              </div>
+              <div style={{ height: "86vh" }}>
+                <img
+                  src={ai}
+                  alt="i1"
+                  style={{ height: "86vh", objectFit: "cover" }}
+                />
+                <p
+                  className="legend"
+                  style={{
+                    fontSize: "22px",
+                    background: `${theme.palette.secondary.main}`,
+                    opacity: ".9",
+                    border: "1px solid #ccc",
+                  }}
+                >
+                  Get AI Generated Result
+                </p>
+              </div>
+              <div>
+                <img
+                  src={analysis}
+                  alt="i1"
+                  style={{ height: "86vh", objectFit: "cover" }}
+                />
+                <p
+                  className="legend"
+                  style={{
+                    fontSize: "22px",
+                    background: `${theme.palette.secondary.main}`,
+                    opacity: ".9",
+                    border: "1px solid #ccc",
+                  }}
+                >
+                  Full Analysis of your Interview
+                </p>
+              </div>
+            </Carousel>
           </Box>
           <Box width="50%" sx={{ height: "100%" }}>
             <Paper
