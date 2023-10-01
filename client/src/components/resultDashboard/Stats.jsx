@@ -1,4 +1,4 @@
-import PieChart from "./graphs/PieChart";
+import PieChart from "../graphs/PieChart";
 import { Box, Divider, Typography } from "@mui/material";
 import { pieData } from "data";
 import React from "react";

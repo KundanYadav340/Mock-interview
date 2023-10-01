@@ -7,7 +7,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { useNavigate } from "react-router-dom";
 
-const CustomDialog = ({ isOpen, closeDialog }) => {
+const FinalSubmitConfirmationModal = ({ isOpen, closeDialog, submit }) => {
   const navigate = useNavigate();
   const handleClose = () => {
     closeDialog();
@@ -22,12 +22,12 @@ const CustomDialog = ({ isOpen, closeDialog }) => {
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          {"You are not Signed in!"}
+          {"Are you Sure to End Interview?"}
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Open sign in page to attempt interview. This will help us to save
-            your ongoing interview.
+            Your answers will be saved and you will not be able to continue this
+            interview again.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -37,14 +37,15 @@ const CustomDialog = ({ isOpen, closeDialog }) => {
           <Button
             variant={"contained"}
             onClick={() => {
-              navigate("/log");
+              submit();
             }}
+            color="error"
           >
-            Sign In
+            Yes, Submit
           </Button>
         </DialogActions>
       </Dialog>
     </div>
   );
 };
-export default CustomDialog;
+export default FinalSubmitConfirmationModal;

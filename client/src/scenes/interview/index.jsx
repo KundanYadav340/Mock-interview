@@ -17,6 +17,9 @@ import { useSubmitAnswersMutation } from "state/api";
 // import Timer from './Timer';
 import MainTimer from "components/MainTimer";
 import { UseSelector, useSelector } from "react-redux/es/hooks/useSelector";
+import InterviewEndConfirmation from "components/interviewDahboard/InterviewEndConfirmation";
+import FinalSubmitConfirmationModal from "components/interviewDahboard/FinalSubmitConfirmationModal";
+import ChatGptHelp from "components/ChatGptHelp";
 
 const Interview = () => {
   const { interviewId } = useParams();
@@ -30,6 +33,8 @@ const Interview = () => {
   const [changingAnswers, setChangingAnsers] = useState(0);
   const [selectedOptions, setSelectedeOptions] = useState([]);
   const [answers, setAnswers] = useState([]);
+  const [isFinalSubmitModalOpen, setIsFinalSubmitModalOpen] = useState(false);
+
   useEffect(() => {
     if (data) {
       var temp = [];
@@ -41,7 +46,7 @@ const Interview = () => {
           answerLink: "",
           timeTaken: 0,
           status: i === 0 ? "seen" : "notSeen",
-          transcript:""
+          transcript: "",
         };
         temp[i] = initial;
       }
@@ -77,7 +82,7 @@ const Interview = () => {
     return time;
   };
 
-  const answerChanged = (id, key, type, transcript="") => {
+  const answerChanged = (id, key, type, transcript = "") => {
     //for single choice question
     if (type === "singleChoice") {
       //console.log("obtained key", key, "id", id);
@@ -107,10 +112,15 @@ const Interview = () => {
       // console.log("qwww", key, transcript);
       const status = key !== "" ? "attempted" : "seen";
       const options = key !== "" ? [key] : [];
-      console.log("op",options);
+      console.log("op", options);
       const updatedAnswer = answers.map((answer) =>
         answer.question_id === id
-          ? { ...answer, status: status, selectedOptions: options, transcript:transcript }
+          ? {
+              ...answer,
+              status: status,
+              selectedOptions: options,
+              transcript: transcript,
+            }
           : answer
       );
       setAnswers(updatedAnswer);
@@ -132,19 +142,7 @@ const Interview = () => {
   if (completed === "completed") {
     return (
       <>
-        <Box
-          sx={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            bottom: 0,
-            right: 0,
-            background: "#fff",
-            zIndex: 999,
-          }}
-        >
-          <Typography variant="h4">Test Ended Enjoy</Typography>
-        </Box>
+        <InterviewEndConfirmation />
       </>
     );
   } else
@@ -160,6 +158,11 @@ const Interview = () => {
           m: "0px",
         }}
       >
+        <FinalSubmitConfirmationModal
+          isOpen={isFinalSubmitModalOpen}
+          closeDialog={() => setIsFinalSubmitModalOpen(false)}
+          submit={finalSubmit}
+        />
         <FlexBetween
           width="100%"
           sx={{
@@ -168,19 +171,19 @@ const Interview = () => {
           }}
         >
           <Typography variant="h6" ml="10px">
-            Data Structures and Algorithms
+            {interviewId}
           </Typography>
           <Typography variant="h6" fontWeight="bold">
-            <MainTimer duration={220} finalSubmit={finalSubmit} />
+            <MainTimer duration={2200000} finalSubmit={finalSubmit} />
           </Typography>
           <FlexBetween gap="20px" mr="20px">
             <Button
               variant="contained"
-              color="primary"
+              color="error"
               size="small"
               sx={{ textTransform: "none" }}
               onClick={() => {
-                finalSubmit();
+                setIsFinalSubmitModalOpen(true);
               }}
             >
               Submit
@@ -244,13 +247,16 @@ const Interview = () => {
                 {data && openedQuestion !== data.length - 1 ? (
                   <Button
                     variant="contained"
-                    size="small"
+                    // size="small"
                     color="primary"
                     onClick={() => {
                       nextQuestion();
                     }}
+                    sx={{
+                      textTransform: "none",
+                    }}
                   >
-                    SAVE & NEXT
+                    Save & Next
                   </Button>
                 ) : (
                   <Button
@@ -271,7 +277,7 @@ const Interview = () => {
             sx={{
               display: "flex",
               flexDirection: "column",
-              justifyContent: "space-between",
+              // justifyContent: "space-between",
               height: "100%",
               width: "420px",
             }}
@@ -280,7 +286,9 @@ const Interview = () => {
               <StatusBox answers={answers} isChanging={changingAnswers} />
             </Box>
             <Box>
-              <FlexBetween height="240px"></FlexBetween>
+              <Box height={"360px"} sx={{ overflowY: "scroll" }}>
+                {data && <ChatGptHelp prompt={data[openedQuestion].question} />}
+              </Box>
             </Box>
           </Box>
         </Box>

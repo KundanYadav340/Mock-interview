@@ -13,7 +13,7 @@ import logo from "assets/typo.png";
 import { useRegisterUserMutation } from "state/api";
 import { useDispatch } from "react-redux";
 import { setUser } from "state";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import back from "assets/work.jpg";
 import analysis from "assets/analysis.jpg";
 import onetoone from "assets/onetoone.jpg";
@@ -22,6 +22,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import { Carousel } from "react-responsive-carousel";
 import { useTheme } from "@emotion/react";
 import { toast } from "react-toastify";
+import CopyrightIcon from "@mui/icons-material/Copyright";
 
 const CreateAccountPage = () => {
   const [name, setName] = useState("");
@@ -89,197 +90,217 @@ const CreateAccountPage = () => {
   };
 
   return (
-    <Box
-      width="100%"
-      display="flex"
-      height="100vh"
-      flexDirection="row"
-      justifyContent="center"
-      alignItems="center"
-      gap="60px"
-      sx={{ backgroundImage: "linear-gradient(##fcfcfc, #eeeeff)" }}
-    >
+    <>
       <Box
-        width="80%"
-        maxWidth={"980px"}
-        height="86vh"
+        width="100%"
         display="flex"
+        height="100vh"
         flexDirection="row"
         justifyContent="center"
         alignItems="center"
+        gap="60px"
+        sx={{ backgroundImage: "linear-gradient(#fcfcfc, #eeeeff)" }}
       >
         <Box
-          width="50%"
-          sx={{ background: "black", height: "100%", overflow: "hidden" }}
+          width="80%"
+          maxWidth={"980px"}
+          height="86vh"
+          display="flex"
+          flexDirection="row"
+          justifyContent="center"
+          alignItems="center"
         >
-          <Carousel
-            showArrows={false}
-            showStatus={false}
-            showIndicators={false}
-            autoPlay={true}
-            infiniteLoop={true}
-            interval={"5000"}
-            showThumbs={false}
-          >
-            <div>
-              <img
-                src={onetoone}
-                alt="i1"
-                style={{
-                  height: "86vh",
-                  objectFit: "cover",
-                  overflow: "hidden",
-                }}
-              />
-              <p
-                className="legend"
-                style={{
-                  fontSize: "22px",
-                  background: `${theme.palette.secondary.main}`,
-                  opacity: ".9",
-                  border: "1px solid #ccc",
-                }}
-              >
-                One to One Counselling
-              </p>
-            </div>
-            <div style={{ height: "86vh" }}>
-              <img
-                src={ai}
-                alt="i1"
-                style={{ height: "86vh", objectFit: "cover" }}
-              />
-              <p
-                className="legend"
-                style={{
-                  fontSize: "22px",
-                  background: `${theme.palette.secondary.main}`,
-                  opacity: ".9",
-                  border: "1px solid #ccc",
-                }}
-              >
-                Get AI Generated Result
-              </p>
-            </div>
-            <div>
-              <img
-                src={analysis}
-                alt="i1"
-                style={{ height: "86vh", objectFit: "cover" }}
-              />
-              <p
-                className="legend"
-                style={{
-                  fontSize: "22px",
-                  background: `${theme.palette.secondary.main}`,
-                  opacity: ".9",
-                  border: "1px solid #ccc",
-                }}
-              >
-                Full Analysis of your Interview
-              </p>
-            </div>
-          </Carousel>
-        </Box>
-        <Box width="50%" sx={{ height: "100%" }}>
-          <Paper
-            elevation={3}
-            style={{
-              position: "relative",
+          <Box
+            width="50%"
+            sx={{
+              background: "black",
               height: "100%",
-              padding: "0px 40px",
+              overflow: "hidden",
+              borderTopLeftRadius: "8px",
+              borderBottomLeftRadius: "8px",
             }}
           >
-            <Box display="flex" flexDirection="row" justifyContent="center">
-              <Box
-                component="img"
-                src={logo}
-                alt="verdict"
-                width="40%"
-                marginTop="60px"
-                marginBottom={"10px"}
-                sx={{ mx: "auto" }}
-              />
-            </Box>
-            <Typography variant="h6" align="center">
-              Welcome to Verdict
-            </Typography>
-            <Typography align="center" gutterBottom>
-              Please Enter Your Credentials to Continue
-            </Typography>
-            <Typography sx={{ color: "red" }}>
-              {data && <Box>{data.message}</Box>}
-              {errorMsg}
-            </Typography>
-            {/* {isError && <div>User Already registered</div>}
+            <Carousel
+              showArrows={false}
+              showStatus={false}
+              showIndicators={false}
+              autoPlay={true}
+              infiniteLoop={true}
+              interval={"5000"}
+              showThumbs={false}
+            >
+              <div>
+                <img
+                  src={onetoone}
+                  alt="i1"
+                  style={{
+                    height: "86vh",
+                    objectFit: "cover",
+                    overflow: "hidden",
+                  }}
+                />
+                <p
+                  className="legend"
+                  style={{
+                    fontSize: "22px",
+                    background: `${theme.palette.secondary.main}`,
+                    opacity: ".9",
+                    border: "1px solid #ccc",
+                  }}
+                >
+                  One to One Counselling
+                </p>
+              </div>
+              <div style={{ height: "86vh" }}>
+                <img
+                  src={ai}
+                  alt="i1"
+                  style={{ height: "86vh", objectFit: "cover" }}
+                />
+                <p
+                  className="legend"
+                  style={{
+                    fontSize: "22px",
+                    background: `${theme.palette.secondary.main}`,
+                    opacity: ".9",
+                    border: "1px solid #ccc",
+                  }}
+                >
+                  Get AI Generated Result
+                </p>
+              </div>
+              <div>
+                <img
+                  src={analysis}
+                  alt="i1"
+                  style={{ height: "86vh", objectFit: "cover" }}
+                />
+                <p
+                  className="legend"
+                  style={{
+                    fontSize: "22px",
+                    background: `${theme.palette.secondary.main}`,
+                    opacity: ".9",
+                    border: "1px solid #ccc",
+                  }}
+                >
+                  Full Analysis of your Interview
+                </p>
+              </div>
+            </Carousel>
+          </Box>
+          <Box width="50%" sx={{ height: "100%" }}>
+            <Paper
+              elevation={3}
+              style={{
+                position: "relative",
+                height: "100%",
+                padding: "0px 40px",
+              }}
+            >
+              <Box display="flex" flexDirection="row" justifyContent="center">
+                <Box
+                  component="img"
+                  src={logo}
+                  alt="verdict"
+                  width="40%"
+                  marginTop="60px"
+                  marginBottom={"10px"}
+                  sx={{ mx: "auto" }}
+                />
+              </Box>
+              {/* <Typography variant="h6" align="center">
+                Welcome to Verdict
+              </Typography> */}
+              <Typography align="center" gutterBottom>
+                Please Enter Your Credentials to Gain Interview Experience
+              </Typography>
+              <Typography sx={{ color: "red" }}>
+                {data && <Box>{data.message}</Box>}
+                {errorMsg}
+              </Typography>
+              {/* {isError && <div>User Already registered</div>}
         {isSuccess && <div>Successfully registered </div>} */}
-            {/* {data && !isLoad && <>{data.error.data.message}</>} */}
-            <form onSubmit={handleSubmit}>
-              <TextField
-                label="Name"
-                fullWidth
-                variant="outlined"
-                margin="normal"
-                value={name}
-                onChange={handleNameChange}
-              />
-              <TextField
-                label="Email"
-                fullWidth
-                variant="outlined"
-                margin="normal"
-                value={email}
-                onChange={handleEmailChange}
-              />
-              <TextField
-                label="Password"
-                fullWidth
-                variant="outlined"
-                margin="normal"
-                type="password"
-                value={password}
-                onChange={handlePasswordChange}
-              />
-              <Button
-                type="submit"
-                variant="contained"
-                color="primary"
-                fullWidth
-                style={{
-                  padding: "10px 0px",
-                  textTransform: "none",
-                  marginTop: "20px",
-                }}
-                disabled={isLoading}
-              >
-                Create Account
-              </Button>
-            </form>
-            <Box textAlign="center">
-              <Button
-                variant="text"
-                sx={{
-                  color: "blue",
-                  mt: "8px",
-                  mb: "6px",
-                  textTransform: "none",
-                }}
-                onClick={() => {
-                  navigate("/log");
-                }}
-              >
-                Already have an account? Log In
-              </Button>
+              {/* {data && !isLoad && <>{data.error.data.message}</>} */}
+              <form onSubmit={handleSubmit}>
+                <TextField
+                  label="Name"
+                  fullWidth
+                  variant="outlined"
+                  margin="normal"
+                  value={name}
+                  onChange={handleNameChange}
+                />
+                <TextField
+                  label="Email"
+                  fullWidth
+                  variant="outlined"
+                  margin="normal"
+                  value={email}
+                  onChange={handleEmailChange}
+                />
+                <TextField
+                  label="Password"
+                  fullWidth
+                  variant="outlined"
+                  margin="normal"
+                  type="password"
+                  value={password}
+                  onChange={handlePasswordChange}
+                />
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  fullWidth
+                  style={{
+                    padding: "10px 0px",
+                    textTransform: "none",
+                    marginTop: "20px",
+                  }}
+                  disabled={isLoading}
+                >
+                  Create Account
+                </Button>
+              </form>
               <Typography
                 sx={{ color: "#808080", fontSize: "12px", mt: "12px" }}
               >
-                Terms and Conditions
+                By signing up, you agree to our <Link>Terms</Link>,{" "}
+                <Link>Privacy Policy</Link> and <Link>Cookies Policy</Link>.
               </Typography>
-            </Box>
-          </Paper>
+              <Box textAlign="center">
+                <Button
+                  variant="outlined"
+                  sx={{
+                    color: "blue",
+                    mt: "12px",
+                    mb: "6px",
+                    textTransform: "none",
+                  }}
+                  onClick={() => {
+                    navigate("/log");
+                  }}
+                >
+                  Already have an account? Log In
+                </Button>
+              </Box>
+            </Paper>
+          </Box>
         </Box>
       </Box>
-    </Box>
+      <Box
+        display={"flex"}
+        alignItems={"center"}
+        justifyContent={"center"}
+        p={"10px"}
+        color={"#808080"}
+        gap={"4px"}
+      >
+        <CopyrightIcon sx={{ fontSize: "18px" }} />
+        <Typography>Verdict 2023</Typography>
+      </Box>
+    </>
   );
 };
 

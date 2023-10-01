@@ -1,17 +1,24 @@
-import * as React from 'react';
-import Button from '@mui/material/Button';
-import ButtonGroup from '@mui/material/ButtonGroup';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import ClickAwayListener from '@mui/material/ClickAwayListener';
-import Grow from '@mui/material/Grow';
-import Paper from '@mui/material/Paper';
-import Popper from '@mui/material/Popper';
-import MenuItem from '@mui/material/MenuItem';
-import MenuList from '@mui/material/MenuList';
+import * as React from "react";
+import Button from "@mui/material/Button";
+import ButtonGroup from "@mui/material/ButtonGroup";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import ClickAwayListener from "@mui/material/ClickAwayListener";
+import Grow from "@mui/material/Grow";
+import Paper from "@mui/material/Paper";
+import Popper from "@mui/material/Popper";
+import MenuItem from "@mui/material/MenuItem";
+import MenuList from "@mui/material/MenuList";
+import { Box } from "@mui/material";
 
-const options = ['Data Structures', 'System Design', 'Operating System'];
+const options = [
+  "Computer Science Engineering",
+  "Electronics and Communication Engineering",
+  "Computer Science Engineering",
+  "Electronics and Communication Engineering",
+  "Electrical and Electronics Engineering",
+];
 
-export default function SelectDropDown() {
+const SelectDropDown = () => {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
   const [selectedIndex, setSelectedIndex] = React.useState(1);
@@ -38,13 +45,37 @@ export default function SelectDropDown() {
   };
 
   return (
-    <React.Fragment>
-      <ButtonGroup  variant="contained" ref={anchorRef} aria-label="split button" sx={{mt:"10px"}}>
-        <Button variant="outlined" onClick={handleClick}>{options[selectedIndex]}</Button>
+    <>
+      <ButtonGroup
+        variant="contained"
+        ref={anchorRef}
+        aria-label="split button"
+        // sx={{ mt: "10px" }}
+      >
+        <Button
+          variant="outlined"
+          onClick={handleClick}
+          sx={{
+            fontSize: "14px",
+            textTransform: "none",
+          }}
+        >
+          <Box
+            sx={{
+              width: "200px",
+              overflow: "hidden",
+              // textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
+              textAlign: "left",
+            }}
+          >
+            {options[selectedIndex]}
+          </Box>
+        </Button>
         <Button
           size="small"
-          aria-controls={open ? 'split-button-menu' : undefined}
-          aria-expanded={open ? 'true' : undefined}
+          aria-controls={open ? "split-button-menu" : undefined}
+          aria-expanded={open ? "true" : undefined}
           aria-label="select merge strategy"
           aria-haspopup="menu"
           onClick={handleToggle}
@@ -67,7 +98,7 @@ export default function SelectDropDown() {
             {...TransitionProps}
             style={{
               transformOrigin:
-                placement === 'bottom' ? 'center top' : 'center bottom',
+                placement === "bottom" ? "center top" : "center bottom",
             }}
           >
             <Paper>
@@ -76,7 +107,7 @@ export default function SelectDropDown() {
                   {options.map((option, index) => (
                     <MenuItem
                       key={option}
-                      disabled={index === 2}
+                      // disabled={index === 2}
                       selected={index === selectedIndex}
                       onClick={(event) => handleMenuItemClick(event, index)}
                     >
@@ -89,6 +120,7 @@ export default function SelectDropDown() {
           </Grow>
         )}
       </Popper>
-    </React.Fragment>
+    </>
   );
-}
+};
+export default SelectDropDown;

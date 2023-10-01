@@ -52,35 +52,38 @@ const ChatGptHelp = ({ prompt }) => {
   };
   return (
     <Box
-      mt="18px"
+      // mt="5vh"
       mb="60px"
       display="flex"
       alignItems="center"
       flexDirection="column"
+      sx={{
+        border: "1px solid #dfdfdf",
+        borderRadius: "6px",
+      }}
     >
       <Box
         display="flex"
         alignItems="center"
         justifyContent="center"
         flexDirection="row"
-        width="96%"
+        width="100%"
         sx={{
           background: "#ededed",
-          p: "6px",
+          p: "6px 0px",
           borderRadius: "6px",
-          mb: "12px",
         }}
       >
         {isLoading && (
           <Box
             sx={{
-              color: "darkcyan",
+              color: "darkblue",
               fontFamily: "verdana",
               fontWeight: "bold",
-              p: "0px 8px",
+              p: "0px 12px",
             }}
           >
-            Generating Content...
+            AI finding hints...
           </Box>
         )}
         {!contentToShow && !isLoading && (
@@ -89,18 +92,24 @@ const ChatGptHelp = ({ prompt }) => {
             sx={{ textTransform: "none", background: "white" }}
             onClick={handleButtonClick}
           >
-            Get AI suggestions
+            Get AI generated hints
           </Button>
         )}
         {contentToShow && (
-          <Box sx={{ fontWeight: "bold" }}>AI generated content</Box>
+          <Box sx={{ fontWeight: "bold" }}>AI generated hints</Box>
         )}
       </Box>
       <Box width="94%" sx={{ color: "#606060" }}>
         {data &&
           contentToShow &&
           contentToShow.split("\n").map((item, index) => (
-            <div style={{ marginBottom: "10px" }} key={index}>
+            <div
+              style={{
+                marginBottom: "10px",
+                mt: "24px",
+              }}
+              key={index}
+            >
               {item}
             </div>
           ))}

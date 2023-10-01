@@ -35,6 +35,27 @@ const SidebarResult = () => {
         p="16px"
         sx={{
           border:
+            lastPathSegment === "QuestionAnalyssis"
+              ? "2px solid darkblue"
+              : "1px solid #dfdfdf",
+          borderRadius: "10px",
+          textTransform: "none",
+          fontWeight: "bold",
+          cursor: "pointer",
+          mb: "10px",
+          color:
+            lastPathSegment === "QuestionAnalysis" ? "darkblue" : "#606060",
+        }}
+        onClick={() => {
+          navigate(`QuestionAnalysis`);
+        }}
+      >
+        Tag Analysis
+      </Box>
+      <Box
+        p="16px"
+        sx={{
+          border:
             lastPathSegment === "QuestionAnalysis"
               ? "2px solid darkblue"
               : "1px solid #dfdfdf",

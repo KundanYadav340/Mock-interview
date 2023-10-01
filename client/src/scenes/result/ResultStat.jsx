@@ -1,9 +1,9 @@
 import { Box } from "@mui/material";
-import SidebarResult from "components/SidebarResult";
 import React, { useEffect, useState } from "react";
 import { Outlet, useParams } from "react-router-dom";
 import { useGetOneSubmissionQuery } from "state/api";
 import { useGetEvaluateMutation } from "state/api";
+import SidebarResult from "components/resultDashboard/SidebarResult";
 
 const ResultStat = () => {
   const { submissionId } = useParams();
@@ -30,7 +30,11 @@ const ResultStat = () => {
   }
   return (
     <Box display="flex" width="100%" sx={{ background: "white" }}>
-      <Box width="300px" height="100vh" sx={{ position: "fixed" }}>
+      <Box
+        width="300px"
+        height="100vh"
+        sx={{ position: "fixed", borderRight: "1px solid #dfdfdf" }}
+      >
         <Box
           display={"flex"}
           flexDirection={"row"}
@@ -46,6 +50,7 @@ const ResultStat = () => {
           background: "#f5f7fb",
           marginLeft: "300px",
           paddingLeft: "20px",
+          minHeight: "100vh",
         }}
       >
         <Outlet />

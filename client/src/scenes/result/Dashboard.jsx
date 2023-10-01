@@ -2,13 +2,13 @@ import { Box, useMediaQuery } from "@mui/material";
 import FlexBetween from "components/FlexBetween";
 import React from "react";
 import { useTheme } from "@emotion/react";
-import Score from "components/Score";
-import TagAnalysis from "components/TagAnalysis";
-import SpeedoMeter from "components/SpeedoMeter";
-import RankBox from "components/RankBox";
+import Score from "components/resultDashboard/Score";
+import TagAnalysis from "components/resultDashboard/TagAnalysis";
+import SpeedoMeter from "components/resultDashboard/SpeedoMeter";
+import RankBox from "components/resultDashboard/RankBox";
 import LineGraphs from "components/graphs/LineGraphs";
 import { timeTaken } from "data";
-import Stats from "components/Stats";
+import Stats from "components/resultDashboard/Stats";
 
 const Dashboard = () => {
   const isNonMediumScreens = useMediaQuery("(min-width: 1200px)");
@@ -22,7 +22,7 @@ const Dashboard = () => {
           display="grid"
           gridTemplateColumns="repeat(12, 1fr)"
           gridAutoRows="160px"
-          gap="15 px"
+          gap="15px"
           sx={{
             "& > div": {
               gridColumn: isNonMediumScreens ? undefined : "span 12",

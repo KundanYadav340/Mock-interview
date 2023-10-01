@@ -3,10 +3,13 @@ import {
   ArrowForwardIosRounded,
   DocumentScanner,
 } from "@mui/icons-material";
-import { Box, Button, Collapse, Typography } from "@mui/material";
+import { Box, Button, Chip, Collapse, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useGetResultQuery } from "state/api";
+import AutoModeIcon from "@mui/icons-material/AutoMode";
+import NotAttempted from "components/resultDashboard/NotAttempted";
+import OthersVideoAnswer from "./OthersVideoAnswer";
 const VideoShow = ({ link }) => {
   const [vlink, setVlink] = useState("");
   useEffect(() => {
@@ -31,8 +34,9 @@ const VideoShow = ({ link }) => {
   );
 };
 const QuestionAnalysisComp = ({ data, changeQuestion, qno }) => {
-  const [answerCollapse, setAnswerCollapse] = useState(false);
-  const [pointsCollapse, setPointsCollapse] = useState(false);
+  const [answerCollapse, setAnswerCollapse] = useState(true);
+  const [pointsCollapse, setPointsCollapse] = useState(true);
+  const [correctAnswerCollapse, setCorrectAnswerCollapse] = useState(false);
   return (
     <Box
       display={"flex"}
@@ -41,28 +45,46 @@ const QuestionAnalysisComp = ({ data, changeQuestion, qno }) => {
       maxWidth={"820px"}
       m=" 30px 60px"
       p="20px"
-      sx={{
-        background: "white",
-      }}
+      sx={
+        {
+          // background: "white",
+        }
+      }
     >
-      <Box>Question no. {qno + 1}</Box>
+      <Box sx={{ display: "flex", alignItems: "center", gap: "12px" }}>
+        <Typography sx={{ fontWeight: "bold" }}>
+          Question no. {qno + 1}
+        </Typography>
+        {data.status !== "attempted" ? (
+          <Chip
+            label="Not Attempted"
+            variant="contained"
+            color="error"
+            size="small"
+          />
+        ) : (
+          <Chip
+            label="Attempted"
+            variant="contained"
+            color="success"
+            size="small"
+          />
+        )}
+      </Box>
       <Box>{data.question.questionAsked}</Box>
-      {data.status === "attempted" && (
+      {data.status === "attempted" ? (
         <>
-          {/*<Box*/}
-          {/*  sx={{*/}
-          {/*    background: "#fcfffc",*/}
-          {/*    p: "8px 12px",*/}
-          {/*    borderRadius: "6px",*/}
-          {/*    border: "1px solid #aaffaa",*/}
-          {/*  }}*/}
-          {/*>*/}
-          {/*  {data.score? `Your Score : ${data.score}`:<Button variant={"outlined"} sx={{textTransform:"none"}}>Score My Answer</Button>}*/}
-          {/*</Box>*/}
           <Box display={"flex"} justifyContent={"center"}>
             <VideoShow link={data.selectedOptions[0]} />
           </Box>
-          <Box sx={{ background: "#efefef", p: "16px", borderRadius: "10px" }}>
+          <Box
+            sx={{
+              background: "#fff",
+              border: "1px solid #dfdfdf",
+              p: "18px",
+              borderRadius: "10px",
+            }}
+          >
             <Box display={"flex"} alignItems={"center"} mb="10px" gap="8px">
               <DocumentScanner sx={{ fontSize: "18px" }} />
               <Typography sx={{ fontWeight: "bold" }}>
@@ -71,7 +93,7 @@ const QuestionAnalysisComp = ({ data, changeQuestion, qno }) => {
             </Box>
             <Collapse
               in={answerCollapse}
-              collapsedSize={40}
+              collapsedSize={60}
               onClick={() => {
                 setAnswerCollapse(!answerCollapse);
               }}
@@ -83,26 +105,27 @@ const QuestionAnalysisComp = ({ data, changeQuestion, qno }) => {
               }}
             >
               {data.transcript}
-              In React, the Virtual DOM is a lightweight copy of the actual DOM,
-              a representation of the UI components' structure and state. When
-              changes occur in a React application, they are first made to the
-              Virtual DOM, not the real DOM. The Virtual DOM then performs a
-              diffing process, comparing the changes with the previous Virtual
-              DOM state. Only the necessary changes are computed, and React
-              updates the real DOM efficiently with these minimal changes.
             </Collapse>
           </Box>
-          <Box>
-            Your Answer is not marked yet, our AI teacher is working hard to
-            analayze your answer. Please wait...
-          </Box>
+          <Box>{/* AI generated strong and  */}</Box>
           <Box sx={{ border: "1px solid #008080" }}>
-            <Box sx={{ background: "#008080", p: "8px 12px" }}>
-              <Typography color={"white"}>Strong and Weak Points:</Typography>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: "10px",
+                background: "#008080",
+                p: "8px 12px",
+              }}
+            >
+              <AutoModeIcon sx={{ color: "white" }} />
+              <Typography color={"white"}>
+                AI Generated Strong and Weak Points:
+              </Typography>
             </Box>
             <Collapse
               in={pointsCollapse}
-              collapsedSize={40}
+              collapsedSize={60}
               onClick={() => {
                 setPointsCollapse(!pointsCollapse);
               }}
@@ -128,7 +151,74 @@ const QuestionAnalysisComp = ({ data, changeQuestion, qno }) => {
             </Collapse>
           </Box>
         </>
+      ) : (
+        <>
+          <NotAttempted />
+        </>
       )}
+      <Box
+        sx={{
+          p: correctAnswerCollapse ? "16px" : "16px 16px 0px 16px",
+          background: "#fff",
+          border: "1px solid #dfdfdf",
+          borderRadius: "12px",
+        }}
+      >
+        <Typography sx={{ fontWeight: "bold" }}>Good to Talk About:</Typography>
+        <Box>
+          <Collapse
+            in={correctAnswerCollapse}
+            collapsedSize={80}
+            onClick={() => {
+              setCorrectAnswerCollapse(!correctAnswerCollapse);
+            }}
+            sx={{
+              color: "#505050",
+              cursor: "pointer",
+              fontFamily: "sans-serif",
+              m: "16px 16px 0px 16px",
+            }}
+          >
+            <Box>
+              The Virtual DOM also simplifies development by providing a more
+              declarative programming model. Developers can focus on describing
+              how the UI should look at any given time, and React takes care of
+              efficiently updating the real DOM.
+            </Box>
+            <Box>
+              In summary, the Virtual DOM in React is a key feature that
+              optimizes web application performance by reducing unnecessary DOM
+              manipulations and offering a more straightforward development
+              workflow.
+            </Box>
+          </Collapse>
+        </Box>
+      </Box>
+      <Box
+        sx={{
+          p: "16px",
+          background: "#fff",
+          border: "1px solid #dfdfdf",
+          borderRadius: "12px",
+        }}
+      >
+        <Typography sx={{ fontWeight: "bold" }}>Most Liked Answers:</Typography>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            gap: "20px",
+            p: "12px",
+            overflowX: "auto",
+          }}
+        >
+          <OthersVideoAnswer />
+          <OthersVideoAnswer />
+          <OthersVideoAnswer />
+          <OthersVideoAnswer />
+          <OthersVideoAnswer />
+        </Box>
+      </Box>
       <Box sx={{ position: "fixed", bottom: "20px", right: "20px" }}>
         <Button
           variant="contained"
@@ -136,6 +226,7 @@ const QuestionAnalysisComp = ({ data, changeQuestion, qno }) => {
           onClick={() => {
             changeQuestion(-2);
           }}
+          sx={{ textTransform: "none" }}
         >
           Previous
         </Button>
@@ -143,7 +234,7 @@ const QuestionAnalysisComp = ({ data, changeQuestion, qno }) => {
           // size="small"
           variant="contained"
           endIcon={<ArrowForwardIosRounded />}
-          sx={{ ml: "10px" }}
+          sx={{ ml: "10px", textTransform: "none" }}
           onClick={() => {
             changeQuestion(-1);
           }}

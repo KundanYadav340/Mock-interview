@@ -12,7 +12,7 @@ import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import SkipNextIcon from "@mui/icons-material/SkipNext";
 import cardImg from "assets/cardImage.jpg";
 import Chip from "@mui/material/Chip";
-import FlexBetween from "./FlexBetween";
+import FlexBetween from "../FlexBetween";
 import { Avatar, Button, Divider, Rating } from "@mui/material";
 import AccessAlarmTwoToneIcon from "@mui/icons-material/AccessAlarmTwoTone";
 import PeopleAltTwoToneIcon from "@mui/icons-material/PeopleAltTwoTone";
@@ -27,11 +27,11 @@ import {
   Verified,
 } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
-import man from "./../assets/man.jpg";
+import man from "./../../assets/man.jpg";
 import TaskAltOutlinedIcon from "@mui/icons-material/TaskAltOutlined";
 import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
 import KeyboardDoubleArrowRightOutlinedIcon from "@mui/icons-material/KeyboardDoubleArrowRightOutlined";
-import CustomDialog from "./popovers/CustomDialog";
+import CustomDialog from "../popovers/CustomDialog";
 
 const InterviewCard = ({
   title,

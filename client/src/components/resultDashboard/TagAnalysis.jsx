@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import React from "react";
-import FlexBetween from "./FlexBetween";
+import FlexBetween from "../FlexBetween";
 
 const Chiplet = () => {
   return (

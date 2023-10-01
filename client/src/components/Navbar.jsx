@@ -11,6 +11,7 @@ import {
   InputBase,
   Badge,
   Button,
+  Select,
 } from "@mui/material";
 import FlexBetween from "./FlexBetween";
 import profileImage from "assets/profile.png";
@@ -22,12 +23,17 @@ import { useDispatch } from "react-redux";
 import { setUser } from "state";
 import { useNavigate } from "react-router-dom";
 import { UseSelector, useSelector } from "react-redux/es/hooks/useSelector";
+import SelectDropDown from "./SelectDropDown";
 
 const Navbar = () => {
   const theme = useTheme();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const pathname = window.location.pathname;
+  const pathSegments = pathname.split("/");
+  const lastPathSegment = pathSegments[pathSegments.length - 1];
   const user = useSelector((state) => state.global.user);
+  // console.log("pathname", lastPathSegment);
   const [active, setActive] = useState(0);
   useEffect(() => {
     // Get the pathname (the part after the domain)
@@ -106,23 +112,26 @@ const Navbar = () => {
           </FlexBetween>
         </FlexBetween>
         {/* middle */}
-        <FlexBetween
-          borderRadius="6px"
-          p="0px"
-          gap="10px"
-          pl="12px"
-          sx={{
-            background: `${theme.palette.grey.main[100]}`,
-            border: `1px solid ${theme.palette.grey.main[200]}`,
-          }}
-        >
-          <InputBase placeholder="Search..." sx={{ width: "280px" }} />
-          <IconButton>
-            <Search sx={{ fontSize: "25px" }} />
-          </IconButton>
-        </FlexBetween>
+        {lastPathSegment === "/home" && (
+          <FlexBetween
+            borderRadius="6px"
+            p="0px"
+            gap="10px"
+            pl="12px"
+            sx={{
+              background: `${theme.palette.grey.main[100]}`,
+              border: `1px solid ${theme.palette.grey.main[200]}`,
+            }}
+          >
+            <InputBase placeholder="Search..." sx={{ width: "280px" }} />
+            <IconButton>
+              <Search sx={{ fontSize: "25px" }} />
+            </IconButton>
+          </FlexBetween>
+        )}
         {/* right */}
         <FlexBetween gap="15px">
+          {lastPathSegment === "" && <SelectDropDown />}
           {!user && (
             <Button
               variant="contained"

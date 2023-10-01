@@ -1,5 +1,5 @@
 import React from "react";
-import FlexBetween from "./FlexBetween";
+import FlexBetween from "../FlexBetween";
 import { Box, Typography } from "@mui/material";
 // import cup from "assets/cup.svg";
 // import cups from "assets/cups.jpg";

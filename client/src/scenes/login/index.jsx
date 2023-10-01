@@ -24,6 +24,7 @@ import ai from "assets/ai.jpg";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
 import { useTheme } from "@emotion/react";
+import CopyrightIcon from "@mui/icons-material/Copyright";
 
 const Login = () => {
   const [name, setName] = useState("");
@@ -92,7 +93,13 @@ const Login = () => {
         >
           <Box
             width="50%"
-            sx={{ background: "black", height: "100%", overflow: "hidden" }}
+            sx={{
+              background: "black",
+              height: "100%",
+              overflow: "hidden",
+              borderTopLeftRadius: "8px",
+              borderBottomLeftRadius: "8px",
+            }}
           >
             <Carousel
               showArrows={false}
@@ -228,11 +235,21 @@ const Login = () => {
                 </Button>
               </form>
               <Box textAlign="center">
+                <Typography
+                  sx={{
+                    color: "#606060",
+                    m: "12px",
+                    fontSize: "14px",
+                    cursor: "pointer",
+                  }}
+                >
+                  forgotten your password?
+                </Typography>
                 <Button
-                  variant="text"
+                  variant="outlined"
                   sx={{
                     color: "blue",
-                    mt: "8px",
+                    mt: "20px",
                     mb: "6px",
                     textTransform: "none",
                   }}
@@ -242,18 +259,21 @@ const Login = () => {
                 >
                   Don't have an account? Create one
                 </Button>
-                <Typography sx={{ color: "#606060" }}>
-                  forgot password
-                </Typography>
-                <Typography
-                  sx={{ color: "#808080", fontSize: "12px", mt: "12px" }}
-                >
-                  Terms and Conditions
-                </Typography>
               </Box>
             </Paper>
           </Box>
         </Box>
+      </Box>
+      <Box
+        display={"flex"}
+        alignItems={"center"}
+        justifyContent={"center"}
+        p={"10px"}
+        color={"#808080"}
+        gap={"4px"}
+      >
+        <CopyrightIcon sx={{ fontSize: "18px" }} />
+        <Typography>Verdict 2023</Typography>
       </Box>
     </>
   );

@@ -34,7 +34,7 @@ const PaperLayout = ({
   const [value, setValue] = useState(null); // state for singleChoice question
   const [selectedValuesMultipleChoice, setSelectedValuesMultipleChoice] =
     useState([]); // state for multipleChoice question
-  if(question.options) var p = new Array(question.options.length).fill(false);
+  if (question.options) var p = new Array(question.options.length).fill(false);
   const [checked, setChecked] = useState(p);
   // const type="multipleChoice";
   const handleChange = (event) => {
@@ -153,7 +153,7 @@ const PaperLayout = ({
           {type === "video" && (
             <Recorder id={_id} answerChanged={answerChanged} />
           )}
-          <Box>{question && <ChatGptHelp prompt={question} />}</Box>
+          {/* <Box>{question && <ChatGptHelp prompt={question} />}</Box> */}
         </Box>
       </Box>
     </Box>
